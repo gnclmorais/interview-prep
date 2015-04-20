@@ -52,6 +52,8 @@ printByLevel (Node x (Node y ll lr) (Node z rl rr)) =
 --
 -- Other problems:
 
+--
+-- Step Climbing
 -- Size of the staircase (in steps) and the length of the steps you can take
 staircase :: Int -> [Int] -> Int
 staircase n m
