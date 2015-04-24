@@ -1,7 +1,8 @@
 /**
  * Implementation number 3: sorted list of {key: 'foo', value: 'bar'} pairs.
  */
-function Dictionary () {
+
+module.exports = (function dictionarySorted () {
   // Entries will be saved as lists as well: {key: 'foo', value: 'bar'}
   this._table = [];
 
@@ -34,10 +35,13 @@ function Dictionary () {
       var start = 0;
       var end = last;
       do {
+//console.log('>> Start & end:', start, end);
         // Get the middle index
-        var middle = Math.ceil((end - start) / 2);
+        var middle = start + Math.ceil((end - start) / 2);
+//console.log('>> Middle:', middle);
         // Get the middle item using the middle index
         var tmp = _table[middle];
+//console.log('>> @ middle:', tmp);
         // If key is bigger, keep looking on the right half;
         // If key is smaller, keep looking on the left half;
         // If equal, we found our element!
@@ -49,6 +53,8 @@ function Dictionary () {
         } else {
           return middle;
         }
+//console.log('>> Next start & end:', start, end);
+//console.log('\n');
       } while (start <= end);
     }
 
@@ -122,18 +128,6 @@ function Dictionary () {
   return {
     'add_key_value_pair': add,
     'get_value': get,
-    'remove_key': remove,
-    // Debug
-    'get_size': function () {
-      return _table.length;
-    },
-    'get_table': function () {
-      return _table;
-    }
+    'remove_key': remove
   };
-}
-
-var dd = Dictionary();
-dd.add_key_value_pair('foo', 'bar');
-dd.add_key_value_pair('test', 'acular');
-dd.get_value('foo');
+}());

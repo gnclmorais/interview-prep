@@ -1,7 +1,7 @@
 /**
  * Implementation number 2: using an array of arrays [[key, value]].
  */
-function Dictionary () {
+module.exports = (function dictionaryArray () {
   // Entries will be saved as lists as well: [key, value]
   this._table = [];
 
@@ -41,7 +41,7 @@ function Dictionary () {
       _table.push(row);
     }
 
-    return
+    return this;
   }
 
   /**
@@ -74,7 +74,7 @@ function Dictionary () {
       _table.splice(index, 1);
     }
 
-    return
+    return this;
   }
 
   /**
@@ -85,4 +85,4 @@ function Dictionary () {
     'get_value': get,
     'remove_key': remove
   };
-}
+}());

@@ -1,0 +1,26 @@
+{
+  "name": "hashtables",
+  "version": "0.0.1",
+  "description": "Hash tables exercises.",
+  "main": "index.js",
+  "scripts": {
+    "test": "clear && mocha --timeout 30000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gnclmorais/interview-prep"
+  },
+  "keywords": [
+    "interview"
+  ],
+  "author": "Gonçalo Morais",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gnclmorais/interview-prep/issues"
+  },
+  "homepage": "https://github.com/gnclmorais/interview-prep",
+  "devDependencies": {
+    "sparkline": "^0.1.1",
+    "sparkly": "^2.0.1"
+  }
+}
