@@ -1,9 +1,8 @@
 /**
- * Implementation number 3: sorted list of [key, value] pairs.
- * tuple = { name:'Bob', age:14 };
+ * Implementation number 3: sorted list of {key: 'foo', value: 'bar'} pairs.
  */
 function Dictionary () {
-  // Entries will be saved as lists as well: [key, value]
+  // Entries will be saved as lists as well: {key: 'foo', value: 'bar'}
   this._table = [];
 
   /**
@@ -13,10 +12,45 @@ function Dictionary () {
    */
   function _search (key) {
     _table.forEach(function (row, index) {
-      if (row[0] === key) {
+      if (row.key === key) {
         return index;
       }
     });
+
+    // If not found, return an invalid index.
+    return -1;
+  }
+
+  /**
+   * Private search method, this time using a binary search approach.
+   * @param  {String} key The key to search for.
+   * @return {Number}     The index of the key found (or -1 if not found).
+   */
+  function _binarySearch (key) {
+    var length = _table.length;
+    var last = length - 1;
+
+    if (length) {
+      var start = 0;
+      var end = last;
+      do {
+        // Get the middle index
+        var middle = Math.ceil((end - start) / 2);
+        // Get the middle item using the middle index
+        var tmp = _table[middle];
+        // If key is bigger, keep looking on the right half;
+        // If key is smaller, keep looking on the left half;
+        // If equal, we found our element!
+        // Keep doing this until start & end meet but no match is found.
+        if (key > tmp.key) {
+          start = middle + 1;
+        } else if (key < tmp.key) {
+          end = middle - 1;
+        } else {
+          return middle;
+        }
+      } while (start <= end);
+    }
 
     // If not found, return an invalid index.
     return -1;
@@ -33,16 +67,20 @@ function Dictionary () {
       return;
     }
 
-    var index = _search(key);
-    var row = [key, value];
-    // If found, replace; if not found, attach to the end of it.
+    var index = _binarySearch(key);
+    var row = {'key': key, 'value': value};
+    // If found, replace; if not found, get the right index where to include it
     if (index > -1) {
       _table[index] = row;
     } else {
-      _table.push(row);
+      var i = 0;
+      while (_table[i] && _table[i].key < key) {
+        i += 1;
+      }
+      _table.splice(i, 0, row);
     }
 
-    return
+    return;
   }
 
   /**
@@ -56,8 +94,8 @@ function Dictionary () {
       return;
     }
 
-    var index = _search(key);
-    return index > -1 ? _table[index] : undefined;
+    var index = _binarySearch(key);
+    return index > -1 ? _table[index].value : undefined;
   }
 
   /**
@@ -70,12 +108,12 @@ function Dictionary () {
       return;
     }
 
-    var index = _search(key);
+    var index = _binarySearch(key);
     if (index > -1) {
       _table.splice(index, 1);
     }
 
-    return
+    return this;
   }
 
   /**
@@ -84,6 +122,18 @@ function Dictionary () {
   return {
     'add_key_value_pair': add,
     'get_value': get,
-    'remove_key': remove
+    'remove_key': remove,
+    // Debug
+    'get_size': function () {
+      return _table.length;
+    },
+    'get_table': function () {
+      return _table;
+    }
   };
 }
+
+var dd = Dictionary();
+dd.add_key_value_pair('foo', 'bar');
+dd.add_key_value_pair('test', 'acular');
+dd.get_value('foo');

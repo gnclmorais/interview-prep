@@ -17,7 +17,7 @@ function Dictionary () {
 
     _table[key] = value;
 
-    return
+    return this;
   }
 
   /**
@@ -46,7 +46,7 @@ function Dictionary () {
 
     delete _table[key];
 
-    return
+    return this;
   }
 
 
